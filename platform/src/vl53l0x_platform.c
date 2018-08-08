@@ -265,7 +265,7 @@ VL53L0X_Error VL53L0X_PollingDelay(VL53L0X_DEV Dev){
 
     for(i=0;i<VL53L0X_POLLINGDELAY_LOOPNB;i++){
         //Do nothing
-        asm("nop");
+        __asm("nop");
     }
 
     LOG_FUNCTION_END(status);

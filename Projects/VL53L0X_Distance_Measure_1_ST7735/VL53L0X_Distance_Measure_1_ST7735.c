@@ -1,5 +1,5 @@
 /*!
- * @file VL53L0X.h
+ * @file  VL53L0X_Distance_Measure_1.c
  * @brief
  * ----------
  * Adapted code from Adafruit VL53L0X driver for Arduino.
@@ -14,24 +14,22 @@
  * Much Appreciated!
  * ----------
  * @author Zee Livermorium
- * @date Aug 4, 2018
+ * @date   Aug 5, 2018
  */
 
+#include <stdint.h>
+#include "../../inc/PLL.h"
+#include "../../inc/Serial.h"
+#include "../../VL53L0X/VL53L0X.h"
 
-#ifndef __VL53L0X_H__
-#define __VL53L0X_H__
+int main(void) {
+    /*-- TM4C123 Init --*/
+    PLL_Init(Bus80MHz);                   // bus clock at 80 MHz
+    VL53L0X_Init();                       // init and wake up VL53L0X
+    Serial_Init();                        // for serial I/O
 
-#include "vl53l0x_api.h"
+    /*-- loop --*/
+    while(1) {                            // read and process
 
-#define FAIL              0
-#define SUCCESS           1
-#define VL53L0X_I2C_ADDR  0x29    // Default sensor I2C address
-
-
-int VL53L0X_Init ();
-
-int VL53L0X_setAddress(uint8_t newAddress);
-
-VL53L0X_Error getSingleRangingMeasurement (VL53L0X_RangingMeasurementData_t *RangingMeasurementData);
-
-#endif
+    }
+}

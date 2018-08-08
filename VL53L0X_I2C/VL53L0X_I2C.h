@@ -17,7 +17,6 @@
  * @date Aug 4, 2018
  */
 
-/*-- I2C Setting --*/
 /*
  *  I2C0 Conncection | I2C1 Conncection | I2C2 Conncection | I2C3 Conncection
  *  ---------------- | ---------------- | ---------------- | ----------------
@@ -25,19 +24,13 @@
  *  SDA -------- PB3 | SDA -------- PA7 | SDA -------- PE5 | SDA -------- PD1
  */
 #if 1           // set this to 1 to use I2C0
-#define I2C0
-#endif
-
-#if 0           // set this to 1 to use I2C1
-#define I2C1
-#endif
-
-#if 0           // set this to 1 to use I2C2
-#define I2C2
-#endif
-
-#if 0           // set this to 1 to use I2C3
-#define I2C3
+    #define I2C0
+#elif 0         // set this to 1 to use I2C1
+    #define I2C1
+#elif 0         // set this to 1 to use I2C2
+    #define I2C2
+#else           // I2C3 if all 0 above
+    #define I2C3
 #endif
 
 /**
@@ -47,5 +40,11 @@
  */
 void VL53L0X_I2C_Init(void);
 
-
-
+int VL53L0X_write_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, uint32_t count);
+int VL53L0X_read_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, uint32_t count);
+int VL53L0X_write_byte(uint8_t deviceAddress, uint8_t index, uint8_t data);
+int VL53L0X_write_word(uint8_t deviceAddress, uint8_t index, uint16_t data);
+int VL53L0X_write_dword(uint8_t deviceAddress, uint8_t index, uint32_t data);
+int VL53L0X_read_byte(uint8_t deviceAddress, uint8_t index, uint8_t *data);
+int VL53L0X_read_word(uint8_t deviceAddress, uint8_t index, uint16_t *data);
+int VL53L0X_read_dword(uint8_t deviceAddress, uint8_t index, uint32_t *data);
