@@ -38,23 +38,25 @@ VL53L0X_DeviceInfo_t DeviceInfo;
 /**************************************************************************/
 int VL53L0X_Init (uint8_t I2C_address) {
     
+#ifndef I2C_Init
+#define I2C_init
+    // initialize I2C on MCU
+    VL53L0X_I2C_Init();
+#endif
     
     // Initialize Comms
     VL53L0X_device.I2cDevAddr = VL53L0X_I2C_ADDR;  // default
-    VL53L0X_device.comms_type      =  1;
-    VL53L0X_device.comms_speed_khz =  400;
     
     // variable needed for some function calls
     uint32_t  refSpadCount;
     uint8_t   isApertureSpads;
     uint8_t   VhvSettings;
     uint8_t   PhaseCal;
-    // initialize I2C on MCU
-    VL53L0X_I2C_Init();
+    
     // unclear if this is even needed:
     if( VL53L0X_IMPLEMENTATION_VER_MAJOR != VERSION_REQUIRED_MAJOR ||
-        VL53L0X_IMPLEMENTATION_VER_MINOR != VERSION_REQUIRED_MINOR ||
-        VL53L0X_IMPLEMENTATION_VER_SUB != VERSION_REQUIRED_BUILD ) {
+       VL53L0X_IMPLEMENTATION_VER_MINOR != VERSION_REQUIRED_MINOR ||
+       VL53L0X_IMPLEMENTATION_VER_SUB != VERSION_REQUIRED_BUILD ) {
         
         status = VL53L0X_ERROR_NOT_SUPPORTED;
         return FAIL;
@@ -64,9 +66,9 @@ int VL53L0X_Init (uint8_t I2C_address) {
     // Data initialization
     status = VL53L0X_DataInit(&VL53L0X_device);
     
-    if (!VL53L0X_setAddress(I2C_address)) {
-        return FAIL;
-    }
+    if (!(I2C_address == VL53L0X_I2C_ADDR))
+        if (!VL53L0X_setAddress(I2C_address)) 
+            return FAIL;
     
     //
     status = VL53L0X_GetDeviceInfo( &VL53L0X_device, &DeviceInfo );
@@ -81,7 +83,7 @@ int VL53L0X_Init (uint8_t I2C_address) {
         //
         status = VL53L0X_StaticInit( &VL53L0X_device );
     }
-
+    
     if( status == VL53L0X_ERROR_NONE ) {
         //
         status = VL53L0X_PerformRefSpadManagement( &VL53L0X_device, &refSpadCount, &isApertureSpads );
@@ -115,9 +117,9 @@ int VL53L0X_Init (uint8_t I2C_address) {
     if( status == VL53L0X_ERROR_NONE ) {
         //
         status = VL53L0X_SetLimitCheckValue( &VL53L0X_device,
-                                             VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD,
-                                             (FixPoint1616_t)( 1.5 * 0.023 * 65536 )
-                                           );
+                                            VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD,
+                                            (FixPoint1616_t)( 1.5 * 0.023 * 65536 )
+                                            );
     }
     
     // return initialization status

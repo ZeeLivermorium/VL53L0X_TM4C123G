@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>VL53L0X_Distance_Measure_1</TargetName>
+      <TargetName>VL53L0X_Distance_Measure</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\</OutputDirectory>
-          <OutputName>VL53L0X_Distance_Measure_1</OutputName>
+          <OutputName>VL53L0X_Distance_Measure</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -426,11 +426,6 @@
               <FilePath>..\..\inc\startup.s</FilePath>
             </File>
             <File>
-              <FileName>VL53L0X_Distance_Measure_1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\VL53L0X_Distance_Measure_1.c</FilePath>
-            </File>
-            <File>
               <FileName>VL53L0X_I2C.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\VL53L0X_I2C\VL53L0X_I2C.c</FilePath>
@@ -469,6 +464,11 @@
               <FileName>vl53l0x_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\platform\src\vl53l0x_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>VL53L0X_Distance_Measure.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\VL53L0X_Distance_Measure.c</FilePath>
             </File>
           </Files>
         </Group>

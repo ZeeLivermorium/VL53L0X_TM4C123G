@@ -784,3 +784,4 @@ int VL53L0X_write_dword(uint8_t deviceAddress, uint8_t index, uint32_t data) {
     // write 4 bytes
     return VL53L0X_write_multi(deviceAddress, index, buffer, 4);
 }
+

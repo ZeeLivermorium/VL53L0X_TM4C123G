@@ -1,5 +1,5 @@
 /*!
- * @file  VL53L0X_Distance_Measure_1.c
+ * @file  VL53L0X_Distance_Measure.c
  * @brief
  * ----------
  * Adapted code from Adafruit VL53L0X driver for Arduino.
@@ -19,7 +19,6 @@
 
 #include <stdint.h>
 #include "PLL.h"
-#include "LED.h"
 #include "Serial.h"
 #include "VL53L0X.h"
 
