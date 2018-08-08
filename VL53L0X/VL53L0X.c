@@ -19,14 +19,10 @@
 
 #include "VL53L0X.h"
 #include "VL53L0X_I2C.h"
-#include "LED.h"
 
-#define VERSION_REQUIRED_MAJOR  1 ///< Required sensor major version
-#define VERSION_REQUIRED_MINOR  0 ///< Required sensor minor version
-#define VERSION_REQUIRED_BUILD  1 ///< Required sensor build
-
-#define STR_HELPER( x ) #x ///< a string helper
-#define STR( x )        STR_HELPER(x) ///< string helper wrapper
+#define VERSION_REQUIRED_MAJOR  1   // Required sensor major version
+#define VERSION_REQUIRED_MINOR  0   // Required sensor minor version
+#define VERSION_REQUIRED_BUILD  1   // Required sensor build
 
 VL53L0X_Error status = VL53L0X_ERROR_NONE; // indicates whether or not the sensor has encountered an error
 VL53L0X_Dev_t VL53L0X_device;
@@ -41,7 +37,7 @@ VL53L0X_DeviceInfo_t DeviceInfo;
  */
 /**************************************************************************/
 int VL53L0X_Init (uint8_t I2C_address) {
-
+    
     
     // Initialize Comms
     VL53L0X_device.I2cDevAddr = VL53L0X_I2C_ADDR;  // default
@@ -53,17 +49,17 @@ int VL53L0X_Init (uint8_t I2C_address) {
     uint8_t   isApertureSpads;
     uint8_t   VhvSettings;
     uint8_t   PhaseCal;
-        // initialize I2C on MCU 
+    // initialize I2C on MCU
     VL53L0X_I2C_Init();
     // unclear if this is even needed:
     if( VL53L0X_IMPLEMENTATION_VER_MAJOR != VERSION_REQUIRED_MAJOR ||
         VL53L0X_IMPLEMENTATION_VER_MINOR != VERSION_REQUIRED_MINOR ||
         VL53L0X_IMPLEMENTATION_VER_SUB != VERSION_REQUIRED_BUILD ) {
-
+        
         status = VL53L0X_ERROR_NOT_SUPPORTED;
         return FAIL;
     }
-	
+    
     
     // Data initialization
     status = VL53L0X_DataInit(&VL53L0X_device);
@@ -80,12 +76,12 @@ int VL53L0X_Init (uint8_t I2C_address) {
             status = VL53L0X_ERROR_NOT_SUPPORTED;
         }
     }
-   
+    
     if( status == VL53L0X_ERROR_NONE ) {
         //
         status = VL53L0X_StaticInit( &VL53L0X_device );
     }
-    if (status) LED_RED_ON();
+
     if( status == VL53L0X_ERROR_NONE ) {
         //
         status = VL53L0X_PerformRefSpadManagement( &VL53L0X_device, &refSpadCount, &isApertureSpads );
@@ -118,7 +114,10 @@ int VL53L0X_Init (uint8_t I2C_address) {
     
     if( status == VL53L0X_ERROR_NONE ) {
         //
-        status = VL53L0X_SetLimitCheckValue( &VL53L0X_device, VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD, (FixPoint1616_t)( 1.5 * 0.023 * 65536 ) );
+        status = VL53L0X_SetLimitCheckValue( &VL53L0X_device,
+                                             VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD,
+                                             (FixPoint1616_t)( 1.5 * 0.023 * 65536 )
+                                           );
     }
     
     // return initialization status
@@ -157,6 +156,6 @@ int VL53L0X_setAddress(uint8_t newAddress) {
  */
 /**************************************************************************/
 VL53L0X_Error VL53L0X_getSingleRangingMeasurement (VL53L0X_RangingMeasurementData_t *RangingMeasurementData) {
-        return VL53L0X_PerformSingleRangingMeasurement( &VL53L0X_device, RangingMeasurementData );
+    return VL53L0X_PerformSingleRangingMeasurement( &VL53L0X_device, RangingMeasurementData );
 }
 

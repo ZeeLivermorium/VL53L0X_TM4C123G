@@ -26,18 +26,17 @@
 int main(void) {
     /*-- TM4C123 Init --*/
     PLL_Init(Bus80MHz);                   	// bus clock at 80 MHz
-	  LED_Init();										
     Serial_Init();                        	// for serial I/O
-	  if(!VL53L0X_Init(VL53L0X_I2C_ADDR)) { 	// init and wake up VL53L0X
-			Serial_println("Fail to initialize VL53L0X :(");
-			delay(1);
-			return 0;
-		} else {
-			Serial_println("VL53L0X Ready~ ");
-		}
-		
+    if(!VL53L0X_Init(VL53L0X_I2C_ADDR)) { 	// init and wake up VL53L0X
+        Serial_println("Fail to initialize VL53L0X :(");
+        delay(1);
+        return 0;
+    } else {
+        Serial_println("VL53L0X Ready~ ");
+    }
+    
     VL53L0X_RangingMeasurementData_t measurement;
-
+    
     /*-- loop --*/
     while(1) {                            	// read and process
         Serial_println("Measuring... ");
@@ -47,6 +46,6 @@ int main(void) {
         } else {
             Serial_println("Out of range :(");
         }
-				delay(1000);                      	// take a break
+        delay(1000);                      	// take a break
     }
 }
