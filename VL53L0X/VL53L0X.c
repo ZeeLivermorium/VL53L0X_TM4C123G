@@ -25,26 +25,28 @@
 #define VERSION_REQUIRED_BUILD  1   // Required sensor build
 
 VL53L0X_Error status = VL53L0X_ERROR_NONE; // indicates whether or not the sensor has encountered an error
-VL53L0X_Dev_t VL53L0X_device;
-VL53L0X_DeviceInfo_t DeviceInfo;
+VL53L0X_Dev_t VL53L0X_device;              // stores VL53L0X device data
+VL53L0X_DeviceInfo_t DeviceInfo;           // stores VL53L0X device info
 
-/**************************************************************************/
-/*!
- @brief  Setups the I2C interface and hardware
- @param  i2c_addr Optional I2C address the sensor can be found on. Default is 0x29
- @param debug Optional debug flag. If true, debug information will print out via Serial.print during setup. Defaults to false.
- @returns True if device is set up, false on any failure
+
+/**
+ * VL53L0X_Init
+ * ----------
+ * @param  I2C_address  address to be set for the I2C device.
+ * ----------
+ * @return 0 for failed initialization, 1 for successful initialization.
+ * ----------
+ * @brief  initialize VL53L0X.
  */
-/**************************************************************************/
 int VL53L0X_Init (uint8_t I2C_address) {
     
-#ifndef I2C_Init
-#define I2C_init
+#ifndef VL53L0X_I2C_INIT
+#define VL53L0X_I2C_INIT
     // initialize I2C on MCU
     VL53L0X_I2C_Init();
 #endif
     
-    // Initialize Comms
+    // set device address to default
     VL53L0X_device.I2cDevAddr = VL53L0X_I2C_ADDR;  // default
     
     // variable needed for some function calls
@@ -62,17 +64,16 @@ int VL53L0X_Init (uint8_t I2C_address) {
         return FAIL;
     }
     
-    
-    // Data initialization
+    // data initialization
     status = VL53L0X_DataInit(&VL53L0X_device);
     
+    // set device address if not using default
     if (!(I2C_address == VL53L0X_I2C_ADDR))
         if (!VL53L0X_setAddress(I2C_address)) 
             return FAIL;
     
-    //
+    // reads the device information for given device
     status = VL53L0X_GetDeviceInfo( &VL53L0X_device, &DeviceInfo );
-    
     if( status == VL53L0X_ERROR_NONE )  {
         if(( DeviceInfo.ProductRevisionMinor != 1 ) && ( DeviceInfo.ProductRevisionMinor != 1 )) {
             status = VL53L0X_ERROR_NOT_SUPPORTED;
@@ -80,64 +81,66 @@ int VL53L0X_Init (uint8_t I2C_address) {
     }
     
     if( status == VL53L0X_ERROR_NONE ) {
-        //
+        // device initialization
         status = VL53L0X_StaticInit( &VL53L0X_device );
     }
     
     if( status == VL53L0X_ERROR_NONE ) {
-        //
+        // performs reference spad Management
         status = VL53L0X_PerformRefSpadManagement( &VL53L0X_device, &refSpadCount, &isApertureSpads );
     }
     
     if( status == VL53L0X_ERROR_NONE ) {
-        //
+        // perform reference calibration
         status = VL53L0X_PerformRefCalibration( &VL53L0X_device, &VhvSettings, &PhaseCal );
     }
     
     if( status == VL53L0X_ERROR_NONE ) {
-        // Setup in single ranging mode
+        // setup in single ranging mode
         status = VL53L0X_SetDeviceMode( &VL53L0X_device, VL53L0X_DEVICEMODE_SINGLE_RANGING );
     }
     
     if( status == VL53L0X_ERROR_NONE ) {
-        // Enable/disable sigma check
+        // enable sigma check
         status = VL53L0X_SetLimitCheckEnable( &VL53L0X_device, VL53L0X_CHECKENABLE_SIGMA_FINAL_RANGE, 1 );
     }
     
     if( status == VL53L0X_ERROR_NONE ) {
-        // Enable/disable signal check
+        // enable signal check
         status = VL53L0X_SetLimitCheckEnable( &VL53L0X_device, VL53L0X_CHECKENABLE_SIGNAL_RATE_FINAL_RANGE, 1 );
     }
     
     if( status == VL53L0X_ERROR_NONE ) {
-        //
+        // enable range check
         status = VL53L0X_SetLimitCheckEnable( &VL53L0X_device, VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD, 1 );
     }
     
     if( status == VL53L0X_ERROR_NONE ) {
-        //
+        // set limit check value
         status = VL53L0X_SetLimitCheckValue( &VL53L0X_device,
-                                            VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD,
-                                            (FixPoint1616_t)( 1.5 * 0.023 * 65536 )
-                                            );
+                                             VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD,
+                                             (FixPoint1616_t)( 1.5 * 0.023 * 65536 )
+                                           );
     }
     
     // return initialization status
     return (status == VL53L0X_ERROR_NONE) ? SUCCESS : FAIL;
 }
 
-/**************************************************************************/
-/*!
- @brief  Change the I2C address of the sensor
- @param  newAddr the new address to set the sensor to
- @returns True if address was set successfully, False otherwise
+/**
+ * VL53L0X_setAddress
+ * ----------
+ * @param  newAddress  the new address to set the VL53L0X to.
+ * ----------
+ * @return 0 for failed initialization, 1 for successful initialization.
+ * ----------
+ * @brief  change the I2C address of VL53L0X.
  */
-/**************************************************************************/
 int VL53L0X_setAddress(uint8_t newAddress) {
     // trim the new address
     newAddress &= 0x7F;
     
-    status = VL53L0X_SetDeviceAddress(&VL53L0X_device, newAddress * 2);  // [8:2] is address
+    status = VL53L0X_SetDeviceAddress(&VL53L0X_device, newAddress * 2);  // [7:2] is address
     
     delay(10);
     
@@ -149,15 +152,16 @@ int VL53L0X_setAddress(uint8_t newAddress) {
     return FAIL;
 }
 
-/**************************************************************************/
-/*!
- @brief  get a ranging measurement from the device
- @param  RangingMeasurementData the pointer to the struct the data will be stored in
- @param debug Optional debug flag. If true debug information will print via Serial.print during execution. Defaults to false.
- @returns True if address was set successfully, False otherwise
+/**
+ * VL53L0X_getSingleRangingMeasurement
+ * ----------
+ * @param  RangingMeasurementData  pointer for where to store the ranging data.
+ * ----------
+ * @return any error code.
+ * ----------
+ * @brief  get a ranging measurement from VL53L0X.
  */
-/**************************************************************************/
-VL53L0X_Error VL53L0X_getSingleRangingMeasurement (VL53L0X_RangingMeasurementData_t *RangingMeasurementData) {
+VL53L0X_Error VL53L0X_getSingleRangingMeasurement (VL53L0X_RangingMeasurementData_t* RangingMeasurementData) {
     return VL53L0X_PerformSingleRangingMeasurement( &VL53L0X_device, RangingMeasurementData );
 }
 

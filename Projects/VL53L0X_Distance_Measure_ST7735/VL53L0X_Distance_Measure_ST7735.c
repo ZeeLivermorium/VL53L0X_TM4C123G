@@ -48,8 +48,6 @@ int main(void) {
     }
     
     VL53L0X_RangingMeasurementData_t measurement;
-    ST7735_OutString("Measuring... ");
-    ST7735_OutChar('\n');
     
     /*-- loop --*/
     while(1) {
@@ -60,10 +58,10 @@ int main(void) {
             ST7735_OutString(" mm");
             ST7735_OutChar('\n');
         } else {
-            ST7735_OutString("Out of range :(");
+            ST7735_OutString("Out of range :( ");
             ST7735_OutChar('\n');
         }
         delay(1000);                                // take a break
-        ST7735_SetCursor(0, 6);
+        ST7735_SetCursor(0, 3);
     }
 }
