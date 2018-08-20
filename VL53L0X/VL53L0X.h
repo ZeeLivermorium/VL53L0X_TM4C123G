@@ -36,12 +36,37 @@
  *  SDA -------- PB3 | SDA -------- PA7 | SDA -------- PE5 | SDA -------- PD1
  */
 
-typedef int VL53L0X_I2C_Port;
-
+/**
+ * VL53L0X_Init
+ * ----------
+ * @param  I2C_address  address to be set for the I2C device.
+ * ----------
+ * @return 0 for failed initialization, 1 for successful initialization.
+ * ----------
+ * @brief  Initialize VL53L0X.
+ */
 int VL53L0X_Init(uint8_t I2C_address);
 
+/**
+ * VL53L0X_setAddress
+ * ----------
+ * @param  newAddress  the new address to set the VL53L0X to.
+ * ----------
+ * @return 0 for failed initialization, 1 for successful initialization.
+ * ----------
+ * @brief  Change the I2C address of VL53L0X.
+ */
 int VL53L0X_setAddress(uint8_t newAddress);
 
+/**
+ * VL53L0X_getSingleRangingMeasurement
+ * ----------
+ * @param  RangingMeasurementData  pointer for where to store the ranging data.
+ * ----------
+ * @return any error code.
+ * ----------
+ * @brief  Get a ranging measurement from VL53L0X.
+ */
 VL53L0X_Error VL53L0X_getSingleRangingMeasurement (VL53L0X_RangingMeasurementData_t *RangingMeasurementData);
 
 /****************************************************

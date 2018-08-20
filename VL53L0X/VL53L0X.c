@@ -28,6 +28,7 @@ VL53L0X_Error status = VL53L0X_ERROR_NONE; // indicates whether or not the senso
 VL53L0X_Dev_t VL53L0X_device;              // stores VL53L0X device data
 VL53L0X_DeviceInfo_t DeviceInfo;           // stores VL53L0X device info
 
+int I2C_INIT = 0;
 
 /**
  * VL53L0X_Init
@@ -36,15 +37,15 @@ VL53L0X_DeviceInfo_t DeviceInfo;           // stores VL53L0X device info
  * ----------
  * @return 0 for failed initialization, 1 for successful initialization.
  * ----------
- * @brief  initialize VL53L0X.
+ * @brief  Initialize VL53L0X.
  */
 int VL53L0X_Init (uint8_t I2C_address) {
     
-#ifndef VL53L0X_I2C_INIT
-#define VL53L0X_I2C_INIT
     // initialize I2C on MCU
-    VL53L0X_I2C_Init();
-#endif
+    if (!I2C_INIT) {
+        VL53L0X_I2C_Init();
+        I2C_INIT = 1;          // prevent recall I2C initialization
+    }
     
     // set device address to default
     VL53L0X_device.I2cDevAddr = VL53L0X_I2C_ADDR;  // default
@@ -134,7 +135,7 @@ int VL53L0X_Init (uint8_t I2C_address) {
  * ----------
  * @return 0 for failed initialization, 1 for successful initialization.
  * ----------
- * @brief  change the I2C address of VL53L0X.
+ * @brief  Change the I2C address of VL53L0X.
  */
 int VL53L0X_setAddress(uint8_t newAddress) {
     // trim the new address
@@ -159,7 +160,7 @@ int VL53L0X_setAddress(uint8_t newAddress) {
  * ----------
  * @return any error code.
  * ----------
- * @brief  get a ranging measurement from VL53L0X.
+ * @brief  Get a ranging measurement from VL53L0X.
  */
 VL53L0X_Error VL53L0X_getSingleRangingMeasurement (VL53L0X_RangingMeasurementData_t* RangingMeasurementData) {
     return VL53L0X_PerformSingleRangingMeasurement( &VL53L0X_device, RangingMeasurementData );
