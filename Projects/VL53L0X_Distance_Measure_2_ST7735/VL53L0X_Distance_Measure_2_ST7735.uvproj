@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>VL53L0X_Distance_Measure_ST7735</TargetName>
+      <TargetName>VL53L0X_Distance_Measure_1_ST7735</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\</OutputDirectory>
-          <OutputName>VL53L0X_Distance_Measure_ST7735</OutputName>
+          <OutputName>VL53L0X_Distance_Measure_1_ST7735</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -461,14 +461,19 @@
               <FilePath>..\..\platform\src\vl53l0x_platform.c</FilePath>
             </File>
             <File>
-              <FileName>VL53L0X_Distance_Measure_ST7735.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\VL53L0X_Distance_Measure_ST7735.c</FilePath>
-            </File>
-            <File>
               <FileName>ST7735.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\inc\ST7735.c</FilePath>
+            </File>
+            <File>
+              <FileName>VL53L0X_Distance_Measure_1_ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\VL53L0X_Distance_Measure_1_ST7735.c</FilePath>
+            </File>
+            <File>
+              <FileName>I2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\inc\I2C.c</FilePath>
             </File>
           </Files>
         </Group>

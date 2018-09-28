@@ -19,4 +19,4 @@ Or you can simply email me about the problem or bug at zeelivermorium@gmail.com 
 Much Appreciated!
 
 ## Copyright Note
-This repository adpated and modified source code from [Adafruit's VL53L0X Arduino driver](https://github.com/adafruit/Adafruit_VL53L0X) to make it run on TI TM4C123G MCU.
+This repository adpated and modified some source code from [Adafruit's VL53L0X Arduino driver](https://github.com/adafruit/Adafruit_VL53L0X) to make it run on TI TM4C123G MCU.

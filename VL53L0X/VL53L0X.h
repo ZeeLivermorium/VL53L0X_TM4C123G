@@ -29,6 +29,13 @@
 #define ENABLE            1
 #define VL53L0X_I2C_ADDR  0x29          // Default sensor I2C address
 
+typedef struct {
+    VL53L0X_Dev_t device;               // stores VL53L0X device data
+    VL53L0X_DeviceInfo_t deviceInfo;    // stores VL53L0X device info
+} VL53L0X;
+
+static VL53L0X deviceList[10];
+
 /*
  *  I2C0 Conncection | I2C1 Conncection | I2C2 Conncection | I2C3 Conncection
  *  ---------------- | ---------------- | ---------------- | ----------------
@@ -45,7 +52,7 @@
  * ----------
  * @brief  Initialize VL53L0X.
  */
-int VL53L0X_Init(uint8_t I2C_address);
+int VL53L0X_Init(uint8_t I2C_address, int index);
 
 /**
  * VL53L0X_setAddress
@@ -56,7 +63,7 @@ int VL53L0X_Init(uint8_t I2C_address);
  * ----------
  * @brief  Change the I2C address of VL53L0X.
  */
-int VL53L0X_setAddress(uint8_t newAddress);
+int VL53L0X_setAddress(uint8_t newAddress, int index);
 
 /**
  * VL53L0X_getSingleRangingMeasurement
@@ -67,7 +74,7 @@ int VL53L0X_setAddress(uint8_t newAddress);
  * ----------
  * @brief  Get a ranging measurement from VL53L0X.
  */
-VL53L0X_Error VL53L0X_getSingleRangingMeasurement (VL53L0X_RangingMeasurementData_t *RangingMeasurementData);
+VL53L0X_Error VL53L0X_getSingleRangingMeasurement (VL53L0X_RangingMeasurementData_t *RangingMeasurementData, int index);
 
 /****************************************************
  *                                                  *

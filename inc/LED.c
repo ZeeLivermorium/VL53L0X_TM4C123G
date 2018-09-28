@@ -9,8 +9,9 @@
  * @author Zee Livermorium
  * @date Apr 12, 2018
  */
+
 #include <stdint.h>
-#include "../inc/tm4c123gh6pm.h"            // put this in the right path accordingly
+#include "tm4c123gh6pm.h"
 
 void LED_Init(void){
     /* Port A Activation */

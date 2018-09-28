@@ -1,5 +1,5 @@
 /*!
- * @file  VL53L0X_Distance_Measure_ST7735.c
+ * @file  VL53L0X_Distance_Measure_1_ST7735.c
  * @brief Use VL53L0X to measure distance and display it to ST7735 LCD screen.
  * ----------
  * Adapted code from Adafruit VL53L0X driver for Arduino.
@@ -19,12 +19,14 @@
 
 #include <stdint.h>
 #include "PLL.h"
+#include "I2C.h"
 #include "ST7735.h"
 #include "VL53L0X.h"
 
 int main(void) {
     /*-- TM4C123 Init --*/
     PLL_Init(Bus80MHz);                             // bus clock at 80 MHz
+    I2C_Init();                             // must initialize I2C before initialize VL53L0X
     
     /*-- ST7735 Init --*/
     ST7735_InitR(INITR_REDTAB);
@@ -38,7 +40,7 @@ int main(void) {
     ST7735_OutChar('\n');
     
     /*-- VL53L0X Init --*/
-    if(!VL53L0X_Init(VL53L0X_I2C_ADDR)) {
+    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 0)) {
         ST7735_OutString("Fail to initialize VL53L0X :(");
         delay(1);
         return 0;
@@ -51,11 +53,11 @@ int main(void) {
     
     /*-- loop --*/
     while(1) {
-        VL53L0X_getSingleRangingMeasurement(&measurement);
+        VL53L0X_getSingleRangingMeasurement(&measurement, 0);
         if (measurement.RangeStatus != 4) {
             ST7735_OutString("Distance: ");
             ST7735_OutUDec(measurement.RangeMilliMeter);
-            ST7735_OutString(" mm");
+            ST7735_OutString(" mm ");
             ST7735_OutChar('\n');
         } else {
             ST7735_OutString("Out of range :( ");
