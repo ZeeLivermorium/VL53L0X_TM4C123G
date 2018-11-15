@@ -12,11 +12,6 @@
  * @date   Aug 4, 2018
  */
 
-#ifndef __I2C_H__
-#define __I2C_H__
-
-#include <stdint.h>
-
 /*
  *  I2C0 Conncection | I2C1 Conncection | I2C2 Conncection | I2C3 Conncection
  *  ---------------- | ---------------- | ---------------- | ----------------
@@ -32,6 +27,8 @@
 #else           // use I2C3 if all 0 above
 #define I2C3
 #endif
+
+#include <stdint.h>
 
 /****************************************************
  *                                                  *
@@ -143,5 +140,3 @@ int I2C_read_4_bytes(uint8_t deviceAddress, uint8_t targetRegister, uint8_t* dat
  * @brief write 4 bytes to slave device.
  */
 int I2C_write_4_bytes(uint8_t deviceAddress, uint8_t targetRegister, uint8_t* data);
-
-#endif
