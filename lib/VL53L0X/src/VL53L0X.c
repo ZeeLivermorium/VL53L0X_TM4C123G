@@ -37,7 +37,7 @@ VL53L0X_Error status = VL53L0X_ERROR_NONE; // indicates whether or not the senso
  * @brief  Initialize VL53L0X.
  */
 int VL53L0X_Init (uint8_t I2C_address, int index) {
-	
+    
     I2C_Init();                                         // must initialize I2C before initialize VL53L0X
     // set device address to default
     deviceList[index].device.I2cDevAddr = I2C_address;  // default
@@ -58,7 +58,7 @@ int VL53L0X_Init (uint8_t I2C_address, int index) {
     
     // data initialization
     status = VL53L0X_DataInit(&deviceList[index].device);
-
+    
     // set device address if not using default
     if (!(I2C_address == VL53L0X_I2C_ADDR)) {
         if (!VL53L0X_setAddress(I2C_address, index)) {
@@ -73,7 +73,7 @@ int VL53L0X_Init (uint8_t I2C_address, int index) {
             status = VL53L0X_ERROR_NOT_SUPPORTED;
         }
     }
-
+    
     if( status == VL53L0X_ERROR_NONE ) {
         // device initialization
         status = VL53L0X_StaticInit( &deviceList[index].device );
@@ -83,7 +83,7 @@ int VL53L0X_Init (uint8_t I2C_address, int index) {
         // performs reference spad Management
         status = VL53L0X_PerformRefSpadManagement( &deviceList[index].device, &refSpadCount, &isApertureSpads );
     }
-
+    
     if( status == VL53L0X_ERROR_NONE ) {
         // perform reference calibration
         status = VL53L0X_PerformRefCalibration( &deviceList[index].device, &VhvSettings, &PhaseCal );
@@ -112,9 +112,9 @@ int VL53L0X_Init (uint8_t I2C_address, int index) {
     if( status == VL53L0X_ERROR_NONE ) {
         // set limit check value
         status = VL53L0X_SetLimitCheckValue( &deviceList[index].device,
-                                             VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD,
-                                             (FixPoint1616_t)( 1.5 * 0.023 * 65536 )
-                                           );
+                                            VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD,
+                                            (FixPoint1616_t)( 1.5 * 0.023 * 65536 )
+                                            );
     }
     
     // return initialization status

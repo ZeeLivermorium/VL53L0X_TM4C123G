@@ -34,17 +34,17 @@ void xshut_Init(void) {
     GPIO_PORTE_DEN_R = 0x03;                               // enable digital I/O on PE0-1
     
     GPIO_PORTE_DATA_R = 0x00 ;                             // put all sensors into reset
-		delay(50);
-		GPIO_PORTE_DATA_R = 0xFF ;                             // put all sensors into reset
-		delay(50);
-		GPIO_PORTE_DATA_R = mask;
+    delay(50);
+    GPIO_PORTE_DATA_R = 0xFF ;                             // put all sensors into reset
+    delay(50);
+    GPIO_PORTE_DATA_R = mask;
 }
 
 void xshut_Switch(void) {
     mask <<= 1;			// must activate devices 1 by 1
-		mask += 0x01;		// must not reset any of the previous devices
+    mask += 0x01;		// must not reset any of the previous devices
     GPIO_PORTE_DATA_R = mask;
-	  delay(50);
+    delay(50);
 }
 
 
