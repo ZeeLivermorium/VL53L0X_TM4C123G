@@ -9,7 +9,7 @@
  * If you find any bug or problem, please create new issue or a pull request with a fix in the repository.
  * Or you can simply email me about the problem or bug at zeelivermorium@gmail.com
  * Much Appreciated!
- * @author Zee Livermorium
+ * @author Zee Livermorium and Tariq Muhanna
  * @date   Sep 19, 2018
  */
 
@@ -37,12 +37,14 @@ void xshut_Init(void) {
 		delay(50);
 		GPIO_PORTE_DATA_R = 0xFF ;                             // put all sensors into reset
 		delay(50);
-		GPIO_PORTE_DATA_R = ~mask;
+		GPIO_PORTE_DATA_R = mask;
 }
 
 void xshut_Switch(void) {
-    mask <<= 1;
-    GPIO_PORTE_DATA_R = ~mask;
+    mask <<= 1;			// must activate devices 1 by 1
+		mask += 0x01;		// must not reset any of the previous devices
+    GPIO_PORTE_DATA_R = mask;
 	  delay(50);
 }
+
 
