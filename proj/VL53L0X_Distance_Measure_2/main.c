@@ -13,7 +13,7 @@
  * Or you can simply email me about the problem or bug at zeelivermorium@gmail.com
  * Much Appreciated!
  * ----------
- * @author Zee Livermorium
+ * @author Zee Livermorium and Tariq Muhanna
  * @date   Aug 5, 2018
  */
 
@@ -28,42 +28,49 @@
 int main(void) {
     /*-- TM4C123 Init --*/
     LED_Init();
-    PLL_Init(Bus80MHz);                   	     // bus clock at 80 MHz
-    Serial_Init();                        	     // for serial I/O
-    I2C_Init();                                  // must initialize I2C before initialize VL53L0X
-    xshut_Init();                                // for multi senesor setup
-    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 0)) { 	 // init and wake up VL53L0X sensor 1
-        Serial_println("Fail to initialize VL53L0X :(");
+    PLL_Init(Bus80MHz);                   	     		// bus clock at 80 MHz
+    Serial_Init();                        	     		// for serial I/O
+    xshut_Init();                                		// for multi senesor setup
+	
+		// must always inititalize with address 0x29
+    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 0)) { 	   		// init and wake up VL53L0X sensor 1
+        Serial_println("Fail to initialize VL53L0X 1 :(");
         delay(1);
         return 0;
     } else {
         Serial_println("VL53L0X 1 Ready~ ");
+				VL53L0X_setAddress(VL53L0X_I2C_ADDR+1, 0);	// can change address after initialization
     }
-    xshut_Switch();
-    if(!VL53L0X_Init(VL53L0X_I2C_ADDR + 1, 1)) { // init and wake up VL53L0X sensor 2
-        Serial_println("Fail to initialize VL53L0X :(");
+		
+    xshut_Switch();																	// switch to initaialize next sensor
+		
+		// must always inititalize with address 0x29
+    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 1)) { 				// init and wake up VL53L0X sensor 2
+        Serial_println("Fail to initialize VL53L0X 2 :(");
         delay(1);
         return 0;
     } else {
         Serial_println("VL53L0X 2 Ready~ ");
     }
     
-    VL53L0X_RangingMeasurementData_t measurement;
-    
+    VL53L0X_RangingMeasurementData_t measurement1;
+		VL53L0X_RangingMeasurementData_t measurement2;
+
     /*-- loop --*/
-    while(1) {                            	     // read and process
+    while(1) {                            	     		// read and process
+				
         Serial_println("Sensor 1, measuring... ");
-        VL53L0X_getSingleRangingMeasurement(&measurement, 0);
-        if (measurement.RangeStatus != 4) {
-            Serial_println("Distance: %u mm", measurement.RangeMilliMeter);
+        VL53L0X_getSingleRangingMeasurement(&measurement1, 0);
+        if (measurement1.RangeStatus != 4 || measurement1.RangeMilliMeter < 8000) {			// 8000 cap to avoid out of range #
+            Serial_println("Distance: %u mm", measurement1.RangeMilliMeter);
         } else {
             Serial_println("Out of range :(");
         }
-        
+
         Serial_println("Sensor 2, measuring... ");
-        VL53L0X_getSingleRangingMeasurement(&measurement, 1);
-        if (measurement.RangeStatus != 4) {
-            Serial_println("Distance: %u mm", measurement.RangeMilliMeter);
+        VL53L0X_getSingleRangingMeasurement(&measurement2, 1);
+        if (measurement2.RangeStatus != 4 || measurement2.RangeMilliMeter < 8000) {			// 8000 cap to avoid out of range #
+            Serial_println("Distance: %u mm", measurement2.RangeMilliMeter);
         } else {
             Serial_println("Out of range :(");
         }
