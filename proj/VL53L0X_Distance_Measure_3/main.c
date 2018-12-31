@@ -66,21 +66,11 @@ int main(void) {
         VL53L0X_setAddress(VL53L0X_I2C_ADDR+3, 2);	// can change address after initialization
     }
     
-    xshut_Switch();																	// switch to initaialize next sensor
-    
-    // must always inititalize with address 0x29
-    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 3)) { 				// init and wake up VL53L0X sensor 4
-        Serial_println("Fail to initialize VL53L0X 4 :(");
-        delay(1);
-        return 0;
-    } else {
-        Serial_println("VL53L0X 4 Ready~ ");
-    }
+   
     
     VL53L0X_RangingMeasurementData_t measurement1;
     VL53L0X_RangingMeasurementData_t measurement2;
     VL53L0X_RangingMeasurementData_t measurement3;
-    VL53L0X_RangingMeasurementData_t measurement4;
     
     /*-- loop --*/
     while(1) {                            	     		// read and process
@@ -109,14 +99,6 @@ int main(void) {
             Serial_println("Out of range :(");
         }
         
-        Serial_println("Sensor 4, measuring... ");
-        VL53L0X_getSingleRangingMeasurement(&measurement4, 3);
-        if (measurement4.RangeStatus != 4 || measurement4.RangeMilliMeter < 8000) {			// 8000 cap to avoid out of range #
-            Serial_println("Distance: %u mm", measurement4.RangeMilliMeter);
-        } else {
-            Serial_println("Out of range :(");
-        }
-        
-        delay(1000);                      	     // take a break
+        delay(3000);                      	     // take a break
     }
 }

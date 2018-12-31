@@ -25,24 +25,26 @@ void xshut_Init(void) {
     while((SYSCTL_PRGPIO_R & SYSCTL_PRGPIO_R4) == 0){};    // allow time for activating
     
     /* Port E Set Up */
-    GPIO_PORTE_CR_R = 0x03;                                // allow changes to PE0-1
-    GPIO_PORTE_DIR_R = 0x03;                               // make PE0-1 output
-    GPIO_PORTE_AMSEL_R &= ~0x03;                           // disable analog on PE0-1
-    GPIO_PORTE_PCTL_R &= ((~GPIO_PCTL_PF1_M) &             // configure PF1 as GPIO
-                          (~GPIO_PCTL_PF2_M));             // configure PF2 as GPIO
-    GPIO_PORTE_AFSEL_R  &= ~0x03;                          // disable alt functtion on PE0-1
-    GPIO_PORTE_DEN_R = 0x03;                               // enable digital I/O on PE0-1
+    GPIO_PORTE_CR_R = 0x0F;                                // allow changes to PE0-3
+    GPIO_PORTE_DIR_R = 0x0F;                               // make PE0-3 output
+    GPIO_PORTE_AMSEL_R &= ~0x0F;                           // disable analog on PE0-3
+    GPIO_PORTE_PCTL_R &= ((~GPIO_PCTL_PF0_M) &             // configure PF0 as GPIO
+													(~GPIO_PCTL_PF1_M) &             // configure PF1 as GPIO
+													(~GPIO_PCTL_PF2_M) &             // configure PF2 as GPIO
+                          (~GPIO_PCTL_PF3_M));             // configure PF3 as GPIO
+    GPIO_PORTE_AFSEL_R  &= ~0x0F;                          // disable alt functtion on PE0-3
+    GPIO_PORTE_DEN_R = 0x0F;                               // enable digital I/O on PE0-3
     
-    GPIO_PORTE_DATA_R = 0x00 ;                             // put all sensors into reset
+    GPIO_PORTE_DATA_R = 0x00 ;                             // put all sensors low
     delay(50);
-    GPIO_PORTE_DATA_R = 0xFF ;                             // put all sensors into reset
+    GPIO_PORTE_DATA_R = 0xFF ;                             // put all sensors high
     delay(50);
     GPIO_PORTE_DATA_R = mask;
 }
 
 void xshut_Switch(void) {
-    mask <<= 1;			// must activate devices 1 by 1
-    mask += 0x01;		// must not reset any of the previous devices
+    mask <<= 1;			                                       // must activate devices 1 by 1
+    mask += 0x01;		                                       // must not reset any of the previous devices
     GPIO_PORTE_DATA_R = mask;
     delay(50);
 }
