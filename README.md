@@ -11,7 +11,32 @@ Driver Library for **STMicroelectronics VL53L0X Time-of-Flight Ranging Sensor** 
 VL53L0X only runs on I2C protocol. To use different I2C ports, adjust the preprocessor setting in [I2C.h](lib/common/inc/I2C.h#L21).
 
 ## Multiple VL53L0Xs
-To use multiple VL53L0Xs at the same time using the same I2C bus, we need to first change the device I2C address. To avoid the address conflict during the address modification, the XSHUT pin is used. Pulling XSHUT down pin low puts VL53L0X into shutdown mode. By keeping only one sensor awake at a time, you can modify the device address for the awake VL53L0X, using the [*VL53L0X_setAddress*](lib/VL53L0X/inc/VL53L0X.h#L59) API. To wire multiple devices, you can use a few GPIO vins from TM4C123 or use a shift register IC, if saving pins is needed for your project. Of course, you should try any other circuit configuration, if you think it's needed.
+To use multiple VL53L0Xs at the same time using the same I2C bus, we need to first change the device I2C address. To avoid the address conflict during the address modification, the XSHUT pin is used. Pulling XSHUT down pin low puts VL53L0X into shutdown mode. By keeping only one sensor awake at a time, you can modify the device address for the awake VL53L0X, using the [*VL53L0X_setAddress*](lib/VL53L0X/inc/VL53L0X.h#L66) API. To wire multiple devices, you can use a few GPIO vins from TM4C123 or use a shift register IC, if saving pins is needed for your project. Of course, you should try any other circuit configuration, if you think it's needed.
+
+## Projects
+[VL53L0X_Distance_Measure_1](proj/VL53L0X_Distance_Measure_1)
+> Interfacing 1 sensor and output the result to serial output.
+
+[VL53L0X_Distance_Measure_1_ST7735](proj/VL53L0X_Distance_Measure_1_ST7735)
+> Interfacing 1 sensor and output the result to a ST7735 display.
+
+[VL53L0X_Distance_Measure_2](proj/VL53L0X_Distance_Measure_2)
+> Interfacing 2 sensor and output the result to serial output.
+
+[VL53L0X_Distance_Measure_2_ST7735](proj/VL53L0X_Distance_Measure_2_ST7735)
+> Interfacing 2 sensor and output the result to a ST7735 display.
+
+[VL53L0X_Distance_Measure_3](proj/VL53L0X_Distance_Measure_3)
+> Interfacing 3 sensor and output the result to serial output.
+
+[VL53L0X_Distance_Measure_3_ST7735](proj/VL53L0X_Distance_Measure_3_ST7735)
+> Interfacing 3 sensor and output the result to a ST7735 display.
+
+[VL53L0X_Distance_Measure_4](proj/VL53L0X_Distance_Measure_4)
+> Interfacing 4 sensor and output the result to serial output.
+
+[VL53L0X_Distance_Measure_4_ST7735](proj/VL53L0X_Distance_Measure_4_ST7735)
+> Interfacing 4 sensor and output the result to a ST7735 display.
 
 ## Problems and Bugs
 If you find any bug or problem, please create new issue or a pull request with a fix in the repository.
