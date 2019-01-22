@@ -2,6 +2,7 @@
 *.iex
 *.dep
 *.bak
+*.bin
 *.axf
 *.htm
 *.crf
