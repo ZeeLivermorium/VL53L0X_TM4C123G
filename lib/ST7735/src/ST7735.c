@@ -704,7 +704,6 @@ void static commandList(const uint8_t *addr) {
 
 // Initialization code common to both 'B' and 'R' type displays
 void static commonInit(const uint8_t *cmdList) {
-  volatile uint32_t delay;
   ColStart  = RowStart = 0; // May be overridden in init func
 
   SYSCTL_RCGCSSI_R |= 0x01;  // activate SSI0
@@ -1573,11 +1572,17 @@ int fputc(int ch, FILE *f){
 int fgetc (FILE *f){
   return 0;
 }
+
+
 // Function called when file error occurs.
-int ferror(FILE *f){
-  /* Your implementation of ferror */
-  return EOF;
-}
+//int ferror(FILE *f){
+//  /* Your implementation of ferror */
+//  return EOF;
+//}
+
+
+
+
 // Abstraction of general output device
 // Volume 2 section 3.4.5
 

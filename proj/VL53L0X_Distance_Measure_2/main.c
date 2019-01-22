@@ -27,7 +27,6 @@
 
 int main(void) {
     /*-- TM4C123 Init --*/
-    LED_Init();
     PLL_Init(Bus80MHz);                   	     		// bus clock at 80 MHz
     Serial_Init();                        	     		// for serial I/O
     xshut_Init();                                		// for multi senesor setup

@@ -2,7 +2,7 @@
 //
 // tm4c123gh6pm.h - TM4C123GH6PM Register Definitions
 //
-// Copyright (c) 2013-2014 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 //   Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// This is part of revision 2.1.0.12573 of the Tiva Firmware Development Package.
+// This is part of revision 2.1.4.178 of the Tiva Firmware Development Package.
 //
 //*****************************************************************************
 
@@ -5457,7 +5457,6 @@
 // The following are defines for the bit fields in the ADC_O_CTL register.
 //
 //*****************************************************************************
-#define ADC_CTL_DITHER          0x00000040  // Dither Mode Enable
 #define ADC_CTL_VREF_M          0x00000001  // Voltage Reference Select
 #define ADC_CTL_VREF_INTERNAL   0x00000000  // VDDA and GNDA are the voltage
                                             // references
@@ -9383,10 +9382,8 @@
 #define SYSCTL_DC1_ADC1         0x00020000  // ADC Module 1 Present
 #define SYSCTL_DC1_ADC0         0x00010000  // ADC Module 0 Present
 #define SYSCTL_DC1_MINSYSDIV_M  0x0000F000  // System Clock Divider
-#define SYSCTL_DC1_MINSYSDIV_80 0x00001000  // Specifies an 80-MHz CPU clock
+#define SYSCTL_DC1_MINSYSDIV_80 0x00002000  // Specifies an 80-MHz CPU clock
                                             // with a PLL divider of 2.5
-#define SYSCTL_DC1_MINSYSDIV_66 0x00002000  // Specifies a 66-MHz CPU clock
-                                            // with a PLL divider of 3
 #define SYSCTL_DC1_MINSYSDIV_50 0x00003000  // Specifies a 50-MHz CPU clock
                                             // with a PLL divider of 4
 #define SYSCTL_DC1_MINSYSDIV_40 0x00004000  // Specifies a 40-MHz CPU clock

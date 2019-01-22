@@ -25,6 +25,8 @@
 #define VERSION_REQUIRED_MINOR  0   // Required sensor minor version
 #define VERSION_REQUIRED_BUILD  1   // Required sensor build
 
+VL53L0X deviceList[10];
+
 VL53L0X_Error status = VL53L0X_ERROR_NONE; // indicates whether or not the sensor has encountered an error
 
 /**

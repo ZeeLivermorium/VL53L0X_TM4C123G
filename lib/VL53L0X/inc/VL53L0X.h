@@ -34,8 +34,6 @@ typedef struct {
     VL53L0X_DeviceInfo_t deviceInfo;    // stores VL53L0X device info
 } VL53L0X;
 
-static VL53L0X deviceList[10];
-
 /*
  *  I2C0 Conncection | I2C1 Conncection | I2C2 Conncection | I2C3 Conncection
  *  ---------------- | ---------------- | ---------------- | ----------------
