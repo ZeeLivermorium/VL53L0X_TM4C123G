@@ -1,4 +1,4 @@
-# Driver Library for VL53L0X ToF Ranging Sensor for TM4C123GXL
+# VL53L0X ToF Ranging Sensor Driver Library for TM4C123GXL
 
 ## Introduction
 Driver Library for **STMicroelectronics VL53L0X Time-of-Flight Ranging Sensor** on **TI TM4C123GXL MCU**. Example Projects using this dirver is available in [Projects](proj) folder. Keil uVision project files are included, which means you can just simply double click on them to open the example files and load to your TM4C123, if using Keil. Otherwise, you have to manage all source files by yourself. Source code used and provided by STMicroelectronics is in [core](lib/core) and [platform](lib/platform) folders. Other files used in this repository are also in [lib](lib) folder.
