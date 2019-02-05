@@ -20,7 +20,6 @@
 #include <stdint.h>
 #include "PLL.h"
 #include "I2C.h"
-#include "LED.h"
 #include "Serial.h"
 #include "VL53L0X.h"
 #include "xshut.h"
@@ -38,13 +37,13 @@ int main(void) {
         return 0;
     } else {
         Serial_println("VL53L0X 1 Ready~ ");
-        VL53L0X_setAddress(VL53L0X_I2C_ADDR+1, 0);	// can change address after initialization
+        VL53L0X_setAddress(VL53L0X_I2C_ADDR + 1, 0);	// can change address after initialization
     }
     
-    xshut_Switch();																	// switch to initaialize next sensor
+    xshut_Switch();										// switch to initaialize next sensor
     
     // must always inititalize with address 0x29
-    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 1)) { 				// init and wake up VL53L0X sensor 2
+    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 1)) { 			// init and wake up VL53L0X sensor 2
         Serial_println("Fail to initialize VL53L0X 2 :(");
         delay(1);
         return 0;
@@ -56,11 +55,11 @@ int main(void) {
     VL53L0X_RangingMeasurementData_t measurement2;
     
     /*-- loop --*/
-    while(1) {                            	     		// read and process
-        
+    while(1) {
         Serial_println("Sensor 1, measuring... ");
         VL53L0X_getSingleRangingMeasurement(&measurement1, 0);
-        if (measurement1.RangeStatus != 4 || measurement1.RangeMilliMeter < 8000) {			// 8000 cap to avoid out of range #
+        // 8000 cap to avoid out of range #
+        if (measurement1.RangeStatus != 4 || measurement1.RangeMilliMeter < 8000) {
             Serial_println("Distance: %u mm", measurement1.RangeMilliMeter);
         } else {
             Serial_println("Out of range :(");
@@ -68,7 +67,8 @@ int main(void) {
         
         Serial_println("Sensor 2, measuring... ");
         VL53L0X_getSingleRangingMeasurement(&measurement2, 1);
-        if (measurement2.RangeStatus != 4 || measurement2.RangeMilliMeter < 8000) {			// 8000 cap to avoid out of range #
+        // 8000 cap to avoid out of range #
+        if (measurement2.RangeStatus != 4 || measurement2.RangeMilliMeter < 8000) {
             Serial_println("Distance: %u mm", measurement2.RangeMilliMeter);
         } else {
             Serial_println("Out of range :(");

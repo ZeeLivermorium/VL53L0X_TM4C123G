@@ -22,10 +22,12 @@
 #include "I2C.h"
 #include "ST7735.h"
 #include "VL53L0X.h"
+#include "xshut.h"
 
 int main(void) {
     /*-- TM4C123 Init --*/
     PLL_Init(Bus80MHz);                             // bus clock at 80 MHz
+    xshut_Init();                                        // for multi senesor setup
     
     /*-- ST7735 Init --*/
     ST7735_InitR(INITR_REDTAB);
@@ -48,7 +50,12 @@ int main(void) {
     } else {
         ST7735_OutString("VL53L0X 1 Ready~ ");
         ST7735_OutChar('\n');
+         // can change address after initialization
+        VL53L0X_setAddress(VL53L0X_I2C_ADDR + 1, 0);
     }
+    
+    // switch to initaialize next sensor
+    xshut_Switch();
     
     // must always inititalize with address 0x29
     // init and wake up VL53L0X sensor 2
@@ -59,6 +66,7 @@ int main(void) {
     } else {
         ST7735_OutString("VL53L0X 2 Ready~ ");
         ST7735_OutChar('\n');
+        
     }
     
     VL53L0X_RangingMeasurementData_t measurement1;
@@ -69,9 +77,10 @@ int main(void) {
         ST7735_OutString("Sensor 1, measuring... ");
         ST7735_OutChar('\n');
         VL53L0X_getSingleRangingMeasurement(&measurement1, 0);
-        if (measurement.RangeStatus != 4) {
+        // 8000 cap to avoid out of range #
+        if (measurement1.RangeStatus != 4 || measurement1.RangeMilliMeter < 8000) {
             ST7735_OutString("Distance: ");
-            ST7735_OutUDec(measurement.RangeMilliMeter);
+            ST7735_OutUDec(measurement1.RangeMilliMeter);
             ST7735_OutString(" mm ");
             ST7735_OutChar('\n');
         } else {
@@ -82,9 +91,10 @@ int main(void) {
         ST7735_OutString("Sensor 2, measuring... ");
         ST7735_OutChar('\n');
         VL53L0X_getSingleRangingMeasurement(&measurement2, 1);
-        if (measurement.RangeStatus != 4) {
+        // 8000 cap to avoid out of range #
+        if (measurement2.RangeStatus != 4 || measurement2.RangeMilliMeter < 8000) {
             ST7735_OutString("Distance: ");
-            ST7735_OutUDec(measurement.RangeMilliMeter);
+            ST7735_OutUDec(measurement2.RangeMilliMeter);
             ST7735_OutString(" mm ");
             ST7735_OutChar('\n');
         } else {

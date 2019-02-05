@@ -38,34 +38,32 @@ int main(void) {
         return 0;
     } else {
         Serial_println("VL53L0X 1 Ready~ ");
-        VL53L0X_setAddress(VL53L0X_I2C_ADDR+1, 0);	// can change address after initialization
+        VL53L0X_setAddress(VL53L0X_I2C_ADDR + 1, 0);	// can change address after initialization
     }
     
-    xshut_Switch();																	// switch to initaialize next sensor
-    
+    // switch to initaialize next sensor
+    xshut_Switch();
     // must always inititalize with address 0x29
-    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 1)) { 				// init and wake up VL53L0X sensor 2
+    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 1)) { 			// init and wake up VL53L0X sensor 2
         Serial_println("Fail to initialize VL53L0X 2 :(");
         delay(1);
         return 0;
     } else {
         Serial_println("VL53L0X 2 Ready~ ");
-        VL53L0X_setAddress(VL53L0X_I2C_ADDR+2, 1);	// can change address after initialization
+        VL53L0X_setAddress(VL53L0X_I2C_ADDR + 2, 1);	// can change address after initialization
     }
     
-    xshut_Switch();																	// switch to initaialize next sensor
-    
+    // switch to initaialize next sensor
+    xshut_Switch();
     // must always inititalize with address 0x29
-    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 2)) { 				// init and wake up VL53L0X sensor 3
+    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 2)) { 			// init and wake up VL53L0X sensor 3
         Serial_println("Fail to initialize VL53L0X 3 :(");
         delay(1);
         return 0;
     } else {
         Serial_println("VL53L0X 3 Ready~ ");
-        VL53L0X_setAddress(VL53L0X_I2C_ADDR+3, 2);	// can change address after initialization
+        VL53L0X_setAddress(VL53L0X_I2C_ADDR + 3, 2);	// can change address after initialization
     }
-    
-   
     
     VL53L0X_RangingMeasurementData_t measurement1;
     VL53L0X_RangingMeasurementData_t measurement2;

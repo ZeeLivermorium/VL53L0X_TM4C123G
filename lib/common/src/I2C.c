@@ -29,7 +29,7 @@
  * ----------
  * @brief initialize a I2C module with corresponding setting parameters.
  */
-void I2C_Init(void) {
+void I2C_Init() {
 #ifdef I2C0
     /*-- I2C0 and Port B Activation --*/
     SYSCTL_RCGCI2C_R |= SYSCTL_RCGCI2C_R0;                 // enable I2C Module 0 clock

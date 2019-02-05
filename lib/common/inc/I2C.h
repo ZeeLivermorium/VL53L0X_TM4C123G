@@ -12,6 +12,8 @@
  * @date   Aug 4, 2018
  */
 
+#include <stdint.h>
+
 /*
  *  I2C0 Conncection | I2C1 Conncection | I2C2 Conncection | I2C3 Conncection
  *  ---------------- | ---------------- | ---------------- | ----------------
@@ -27,8 +29,6 @@
 #else           // use I2C3 if all 0 above
 #define I2C3
 #endif
-
-#include <stdint.h>
 
 /****************************************************
  *                                                  *
