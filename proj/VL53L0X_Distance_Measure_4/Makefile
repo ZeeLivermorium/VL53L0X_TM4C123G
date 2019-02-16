@@ -53,11 +53,11 @@ include ${ROOT}/common.mk
 # Where to find header files that do not live in the source directory.
 #
 IPATH += \
-	${ROOT}/lib/_tm4c			    \
-	${ROOT}/lib/common/inc    \
-	${ROOT}/lib/core/inc      \
-	${ROOT}/lib/platform/inc  \
-	${ROOT}/lib/VL53L0X/inc	  \
+	${ROOT}/lib/_tm4c			                  \
+	${ROOT}/lib/common/inc                  \
+	${ROOT}/lib/LiDAR/VL53L0X/core/inc      \
+	${ROOT}/lib/LiDAR/VL53L0X/platform/inc  \
+	${ROOT}/lib/LiDAR/VL53L0X/VL53L0X/inc	  \
 
 #
 # The default rule
@@ -86,15 +86,15 @@ CFLAGSgcc=-DTARGET_IS_TM4C123_RB1
 # Add lib object files you needed below
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/common/src/Serial.o
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/common/src/I2C.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/core/src/vl53l0x_api_calibration.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/core/src/vl53l0x_api_core.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/core/src/vl53l0x_api_ranging.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/core/src/vl53l0x_api_strings.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/core/src/vl53l0x_api.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/platform/src/vl53l0x_platform.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/VL53L0X/src/VL53L0X_I2C.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/VL53L0X/src/VL53L0X.o
-${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/VL53L0X/src/xshut.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api_calibration.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api_core.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api_ranging.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api_strings.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/platform/src/vl53l0x_platform.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/VL53L0X/src/VL53L0X_I2C.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/VL53L0X/src/VL53L0X.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/VL53L0X/src/xshut.o
 
 #
 # Include the automatically generated dependency files.

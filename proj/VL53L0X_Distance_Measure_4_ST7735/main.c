@@ -27,7 +27,7 @@
 int main(void) {
     /*-- TM4C123 Init --*/
     PLL_Init(Bus80MHz);                             // bus clock at 80 MHz
-    xshut_Init();                                        // for multi senesor setup
+    xshut_Init();                                   // for multi senesor setup
     
     /*-- ST7735 Init --*/
     ST7735_InitR(INITR_REDTAB);
@@ -87,10 +87,36 @@ int main(void) {
         VL53L0X_setAddress(VL53L0X_I2C_ADDR + 3, 2);
         
     }
+		
+		// switch to initaialize next sensor
+    xshut_Switch();
+    
+    // must always inititalize with address 0x29
+    // init and wake up VL53L0X sensor 3
+    if(!VL53L0X_Init(VL53L0X_I2C_ADDR, 3)) {
+        ST7735_OutString("Fail to initialize VL53L0X 4 :(");
+        delay(1);
+        return 0;
+    } else {
+        ST7735_OutString("VL53L0X 4 Ready~ ");
+        ST7735_OutChar('\n');
+        // can change address after initialization
+        VL53L0X_setAddress(VL53L0X_I2C_ADDR + 4, 3);
+        
+    }
+		
+		ST7735_SetCursor(0, 0);
+    ST7735_FillScreen(ST7735_BLACK);
+    
+    ST7735_OutString("@author: Zee Lv");
+    ST7735_OutChar('\n');
+    ST7735_OutString("--------------------");
+    ST7735_OutChar('\n');
     
     VL53L0X_RangingMeasurementData_t measurement1;
     VL53L0X_RangingMeasurementData_t measurement2;
     VL53L0X_RangingMeasurementData_t measurement3;
+	  VL53L0X_RangingMeasurementData_t measurement4;
     
     /*-- loop --*/
     while(1) {
@@ -100,7 +126,7 @@ int main(void) {
         // 8000 cap to avoid out of range #
         if (measurement1.RangeStatus != 4 || measurement1.RangeMilliMeter < 8000) {
             ST7735_OutString("Distance: ");
-            ST7735_OutUDec(measurement1.RangeMilliMeter);
+            ST7735_OutUDec(measurement1.RangeMilliMeter - 20);
             ST7735_OutString(" mm ");
             ST7735_OutChar('\n');
         } else {
@@ -114,7 +140,7 @@ int main(void) {
         // 8000 cap to avoid out of range #
         if (measurement2.RangeStatus != 4 || measurement2.RangeMilliMeter < 8000) {
             ST7735_OutString("Distance: ");
-            ST7735_OutUDec(measurement2.RangeMilliMeter);
+            ST7735_OutUDec(measurement2.RangeMilliMeter - 20);
             ST7735_OutString(" mm ");
             ST7735_OutChar('\n');
         } else {
@@ -124,11 +150,25 @@ int main(void) {
         
         ST7735_OutString("Sensor 3, measuring... ");
         ST7735_OutChar('\n');
-        VL53L0X_getSingleRangingMeasurement(&measurement3, 1);
+        VL53L0X_getSingleRangingMeasurement(&measurement3, 2);
         // 8000 cap to avoid out of range #
         if (measurement3.RangeStatus != 4 || measurement3.RangeMilliMeter < 8000) {
             ST7735_OutString("Distance: ");
-            ST7735_OutUDec(measurement3.RangeMilliMeter);
+            ST7735_OutUDec(measurement3.RangeMilliMeter - 10);
+            ST7735_OutString(" mm ");
+            ST7735_OutChar('\n');
+        } else {
+            ST7735_OutString("Out of range :( ");
+            ST7735_OutChar('\n');
+        }
+				
+				ST7735_OutString("Sensor 4, measuring... ");
+        ST7735_OutChar('\n');
+        VL53L0X_getSingleRangingMeasurement(&measurement4, 3);
+        // 8000 cap to avoid out of range #
+        if (measurement3.RangeStatus != 4 || measurement4.RangeMilliMeter < 8000) {
+            ST7735_OutString("Distance: ");
+            ST7735_OutUDec(measurement4.RangeMilliMeter);
             ST7735_OutString(" mm ");
             ST7735_OutChar('\n');
         } else {
@@ -137,6 +177,6 @@ int main(void) {
         }
         
         delay(3000);                                // take a break
-        ST7735_SetCursor(0, 3);
+        ST7735_SetCursor(0, 2);
     }
 }

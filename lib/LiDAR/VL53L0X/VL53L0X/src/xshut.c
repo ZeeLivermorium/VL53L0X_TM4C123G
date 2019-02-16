@@ -28,10 +28,10 @@ void xshut_Init(void) {
     GPIO_PORTE_CR_R = 0x0F;                                // allow changes to PE0-3
     GPIO_PORTE_DIR_R = 0x0F;                               // make PE0-3 output
     GPIO_PORTE_AMSEL_R &= ~0x0F;                           // disable analog on PE0-3
-    GPIO_PORTE_PCTL_R &= ((~GPIO_PCTL_PF0_M) &             // configure PF0 as GPIO
-													(~GPIO_PCTL_PF1_M) &             // configure PF1 as GPIO
-													(~GPIO_PCTL_PF2_M) &             // configure PF2 as GPIO
-                          (~GPIO_PCTL_PF3_M));             // configure PF3 as GPIO
+    GPIO_PORTE_PCTL_R &= ((~GPIO_PCTL_PE0_M) &             // configure PE0 as GPIO
+                          (~GPIO_PCTL_PE1_M) &             // configure PE1 as GPIO
+                          (~GPIO_PCTL_PE2_M) &             // configure PE2 as GPIO
+                          (~GPIO_PCTL_PE3_M));             // configure PE3 as GPIO
     GPIO_PORTE_AFSEL_R  &= ~0x0F;                          // disable alt functtion on PE0-3
     GPIO_PORTE_DEN_R = 0x0F;                               // enable digital I/O on PE0-3
     

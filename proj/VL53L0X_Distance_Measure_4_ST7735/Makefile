@@ -32,7 +32,7 @@
 #
 # Defines project name
 #
-PROJ_NAME=VL53L0X_Distance_Measure_1
+PROJ_NAME=VL53L0X_Distance_Measure_4_ST7735
 
 #
 # Defines the part type that this project uses.
@@ -55,6 +55,7 @@ include ${ROOT}/common.mk
 IPATH += \
 	${ROOT}/lib/_tm4c			                  \
 	${ROOT}/lib/common/inc                  \
+	${ROOT}/lib/LCD/ST7735/inc              \
 	${ROOT}/lib/LiDAR/VL53L0X/core/inc      \
 	${ROOT}/lib/LiDAR/VL53L0X/platform/inc  \
 	${ROOT}/lib/LiDAR/VL53L0X/VL53L0X/inc	  \
@@ -86,6 +87,7 @@ CFLAGSgcc=-DTARGET_IS_TM4C123_RB1
 # Add lib object files you needed below
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/common/src/Serial.o
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/common/src/I2C.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LCD/ST7735/src/ST7735.o
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api_calibration.o
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api_core.o
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api_ranging.o
@@ -94,6 +96,7 @@ ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/core/src/vl53l0x_api.o
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/platform/src/vl53l0x_platform.o
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/VL53L0X/src/VL53L0X_I2C.o
 ${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/VL53L0X/src/VL53L0X.o
+${BUILDPATH}/$(PROJ_NAME).axf: ${ROOT}/lib/LiDAR/VL53L0X/VL53L0X/src/xshut.o
 
 #
 # Include the automatically generated dependency files.
