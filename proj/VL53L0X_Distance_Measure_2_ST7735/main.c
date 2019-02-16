@@ -27,7 +27,7 @@
 int main(void) {
     /*-- TM4C123 Init --*/
     PLL_Init(Bus80MHz);                             // bus clock at 80 MHz
-    xshut_Init();                                        // for multi senesor setup
+    xshut_Init();                                   // for multi senesor setup
     
     /*-- ST7735 Init --*/
     ST7735_InitR(INITR_REDTAB);
@@ -69,6 +69,14 @@ int main(void) {
         
     }
     
+		ST7735_SetCursor(0, 0);
+    ST7735_FillScreen(ST7735_BLACK);
+    
+    ST7735_OutString("@author: Zee Lv");
+    ST7735_OutChar('\n');
+    ST7735_OutString("--------------------");
+    ST7735_OutChar('\n');
+		
     VL53L0X_RangingMeasurementData_t measurement1;
     VL53L0X_RangingMeasurementData_t measurement2;
     
@@ -102,6 +110,6 @@ int main(void) {
             ST7735_OutChar('\n');
         }
         delay(2000);                                // take a break
-        ST7735_SetCursor(0, 3);
+        ST7735_SetCursor(0, 2);
     }
 }

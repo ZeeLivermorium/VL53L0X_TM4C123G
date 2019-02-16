@@ -116,6 +116,6 @@ int main(void) {
             Serial_println("Out of range :(");
         }
         
-        delay(1000);                      	     // take a break
+        delay(4000);                      	     // take a break
     }
 }

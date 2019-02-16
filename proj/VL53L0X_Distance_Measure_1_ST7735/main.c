@@ -47,6 +47,14 @@ int main(void) {
         ST7735_OutString("VL53L0X Ready~ ");
         ST7735_OutChar('\n');
     }
+		
+		ST7735_SetCursor(0, 0);
+    ST7735_FillScreen(ST7735_BLACK);
+    
+    ST7735_OutString("@author: Zee Lv");
+    ST7735_OutChar('\n');
+    ST7735_OutString("--------------------");
+    ST7735_OutChar('\n');
     
     VL53L0X_RangingMeasurementData_t measurement;
     
@@ -63,6 +71,6 @@ int main(void) {
             ST7735_OutChar('\n');
         }
         delay(1000);                                // take a break
-        ST7735_SetCursor(0, 3);
+        ST7735_SetCursor(0, 2);
     }
 }

@@ -431,11 +431,6 @@
               <FilePath>..\..\lib\LiDAR\VL53L0X\VL53L0X\src\VL53L0X_I2C.c</FilePath>
             </File>
             <File>
-              <FileName>ST7735.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\lib\LiDAR\VL53L0X\ST7735\src\ST7735.c</FilePath>
-            </File>
-            <File>
               <FileName>vl53l0x_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\LiDAR\VL53L0X\platform\src\vl53l0x_platform.c</FilePath>
@@ -469,6 +464,11 @@
               <FileName>startup.s</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\lib\_tm4c\startup.s</FilePath>
+            </File>
+            <File>
+              <FileName>ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\LCD\ST7735\src\ST7735.c</FilePath>
             </File>
           </Files>
         </Group>
