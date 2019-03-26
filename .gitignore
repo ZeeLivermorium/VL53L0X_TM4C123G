@@ -1,15 +1,16 @@
 .DS_Store
-*.iex
+*.axf
+*.bin
+*.o
+*.d
+*.swp
 *.dep
 *.bak
-*.bin
-*.axf
 *.htm
 *.crf
-*.d
 *.lnp
 *.map
 *.uvopt
+*.uvgui.*
 *.lst
-*.o
-*.Zee\ Livermorium
+*.iex

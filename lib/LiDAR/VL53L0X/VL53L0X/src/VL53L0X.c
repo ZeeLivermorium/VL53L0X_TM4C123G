@@ -19,7 +19,6 @@
 
 #include "VL53L0X.h"
 #include "VL53L0X_I2C.h"
-#include "I2C.h"
 
 #define VERSION_REQUIRED_MAJOR  1   // Required sensor major version
 #define VERSION_REQUIRED_MINOR  0   // Required sensor minor version
@@ -40,7 +39,7 @@ VL53L0X_Error status = VL53L0X_ERROR_NONE; // indicates whether or not the senso
  */
 int VL53L0X_Init (uint8_t I2C_address, int index) {
     
-    I2C_Init();                                         // must initialize I2C before initialize VL53L0X
+    VL53L0X_I2C_Init();                                         // must initialize I2C before initialize VL53L0X
     // set device address to default
     deviceList[index].device.I2cDevAddr = I2C_address;  // default
     

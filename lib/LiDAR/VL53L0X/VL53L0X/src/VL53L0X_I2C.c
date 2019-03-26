@@ -19,7 +19,21 @@
 
 #include <stdint.h>
 #include "I2C.h"
-#include "tm4c123gh6pm.h"
+
+/****************************************************
+ *                                                  *
+ *                   Initializer                    *
+ *                                                  *
+ ****************************************************/
+
+/**
+ * VL53L0X_I2C_Init
+ * ----------
+ * @brief initialize I2C with corresponding setting parameters.
+ */
+void VL53L0X_I2C_Init(void) {
+    I2C_Init();
+}
 
 /****************************************************
  *                                                  *
