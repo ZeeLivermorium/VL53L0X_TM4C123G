@@ -112,7 +112,8 @@ int VL53L0X_Init (uint8_t I2C_address, int index) {
     
     if( status == VL53L0X_ERROR_NONE ) {
         // set limit check value
-        status = VL53L0X_SetLimitCheckValue( &deviceList[index].device,
+        status = VL53L0X_SetLimitCheckValue(
+                                            &deviceList[index].device,
                                             VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD,
                                             (FixPoint1616_t)( 1.5 * 0.023 * 65536 )
                                             );

@@ -17,6 +17,21 @@
  * @date   Aug 4, 2018
  */
 
+#include <stdint.h>
+
+/****************************************************
+ *                                                  *
+ *                   Initializer                    *
+ *                                                  *
+ ****************************************************/
+
+/**
+ * VL53L0X_I2C_Init
+ * ----------
+ * @brief initialize I2C with corresponding setting parameters.
+ */
+void VL53L0X_I2C_Init(void);
+
 /****************************************************
  *                                                  *
  *                     R/W API                      *
