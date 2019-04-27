@@ -16,29 +16,33 @@ To use multiple VL53L0Xs at the same time using the same I2C bus, we need to fir
 You can view my current set up for multiple sensor in [xshut.c](lib/LiDAR/VL53L0X/VL53L0X/src/xshut.c). A few GPIO pins on Port E are used to control the xshut pins on multiple sensors.
 
 ## Projects
-[VL53L0X_Distance_Measure_1](proj/VL53L0X_Distance_Measure_1)
+### Single Ranging Default Mode
+[VL53L0X_SingleRanging_1](proj/VL53L0X_SingleRanging_1)
 > Interfacing 1 sensor and output the result to serial output.
 
-[VL53L0X_Distance_Measure_1_ST7735](proj/VL53L0X_Distance_Measure_1_ST7735)
+[VL53L0X_SingleRanging_1_ST7735](proj/VL53L0X_SingleRanging_1_ST7735)
 > Interfacing 1 sensor and output the result to a ST7735 display.
 
-[VL53L0X_Distance_Measure_2](proj/VL53L0X_Distance_Measure_2)
+[VL53L0X_SingleRanging_2](proj/VL53L0X_SingleRanging_2)
 > Interfacing 2 sensor and output the result to serial output.
 
-[VL53L0X_Distance_Measure_2_ST7735](proj/VL53L0X_Distance_Measure_2_ST7735)
+[VL53L0X_SingleRanging_2_ST7735](proj/VL53L0X_SingleRanging_2_ST7735)
 > Interfacing 2 sensor and output the result to a ST7735 display.
 
-[VL53L0X_Distance_Measure_3](proj/VL53L0X_Distance_Measure_3)
+[VL53L0X_SingleRanging_3](proj/VL53L0X_SingleRanging_3)
 > Interfacing 3 sensor and output the result to serial output.
 
-[VL53L0X_Distance_Measure_3_ST7735](proj/VL53L0X_Distance_Measure_3_ST7735)
+[VL53L0X_SingleRanging_3_ST7735](proj/VL53L0X_SingleRanging_3_ST7735)
 > Interfacing 3 sensor and output the result to a ST7735 display.
 
-[VL53L0X_Distance_Measure_4](proj/VL53L0X_Distance_Measure_4)
+[VL53L0X_SingleRanging_4](proj/VL53L0X_SingleRanging_4)
 > Interfacing 4 sensor and output the result to serial output.
 
-[VL53L0X_Distance_Measure_4_ST7735](proj/VL53L0X_Distance_Measure_4_ST7735)
+[VL53L0X_SingleRanging_4_ST7735](proj/VL53L0X_SingleRanging_4_ST7735)
 > Interfacing 4 sensor and output the result to a ST7735 display.
+
+### Continuous Ranging Mode
+> In Dev
 
 ## Problems and Bugs
 If you find any bug or problem, please create new issue or a pull request with a fix in the repository.
