@@ -2,12 +2,9 @@
  * @file  VL53L0X_I2C.h
  * @brief VL53L0X I2C initialization and read/write APIs.
  * ----------
- * Adapted code from Adafruit VL53L0X driver for Arduino.
- * You can find the Adafruit VL53L0X driver here: https://github.com/adafruit/Adafruit_VL53L0X
- * ----------
  * ST VL53L0X datasheet: https://www.st.com/resource/en/datasheet/vl53l0x.pdf
  * ----------
- * For future development and updates, please follow this repository: https://github.com/ZeeLivermorium/VL53L0X_TM4C123
+ * For future development and updates, please follow this repository: https://github.com/ZeeLivermorium/VL53L0X_TM4C123G
  * ----------
  * If you find any bug or problem, please create new issue or a pull request with a fix in the repository.
  * Or you can simply email me about the problem or bug at zeelivermorium@gmail.com

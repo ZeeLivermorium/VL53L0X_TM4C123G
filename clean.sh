@@ -20,3 +20,4 @@ find . -name "*.map" -exec rm -rf {} \;
 find . -name "*.uvopt" -exec rm -rf {} \;
 find . -name "*.uvgui.*" -exec rm -rf {} \;
 find . -name "*.lst" -exec rm -rf {} \;
+find . -name "*.iex" -exec rm -rf {} \;

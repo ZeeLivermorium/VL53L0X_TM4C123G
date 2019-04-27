@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>VL53L0X_Distance_Measure_2_ST7735</TargetName>
+      <TargetName>VL53L0X_SingleRanging_3_ST7735</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\</OutputDirectory>
-          <OutputName>VL53L0X_Distance_Measure_2_ST7735</OutputName>
+          <OutputName>VL53L0X_SingleRanging_3_ST7735</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -474,6 +474,11 @@
               <FileName>ST7735.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\LCD\ST7735\src\ST7735.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\common\src\Serial.c</FilePath>
             </File>
           </Files>
         </Group>

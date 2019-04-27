@@ -2,12 +2,9 @@
  * @file  VL53L0X.h
  * @brief VL53L0X driver APIs.
  * ----------
- * Adapted code from Adafruit VL53L0X driver for Arduino.
- * You can find the Adafruit VL53L0X driver here: https://github.com/adafruit/Adafruit_VL53L0X
- * ----------
  * ST VL53L0X datasheet: https://www.st.com/resource/en/datasheet/vl53l0x.pdf
  * ----------
- * For future development and updates, please follow this repository: https://github.com/ZeeLivermorium/VL53L0X_TM4C123
+ * For future development and updates, please follow this repository: https://github.com/ZeeLivermorium/VL53L0X_TM4C123G
  * ----------
  * If you find any bug or problem, please create new issue or a pull request with a fix in the repository.
  * Or you can simply email me about the problem or bug at zeelivermorium@gmail.com
@@ -22,6 +19,10 @@
 #define __VL53L0X_H__
 
 #include "vl53l0x_api.h"
+
+#define VERSION_REQUIRED_MAJOR  1   // Required sensor major version
+#define VERSION_REQUIRED_MINOR  0   // Required sensor minor version
+#define VERSION_REQUIRED_BUILD  1   // Required sensor build
 
 #define FAIL              0
 #define SUCCESS           1
@@ -44,13 +45,24 @@ typedef struct {
 /**
  * VL53L0X_Init
  * ----------
- * @param  I2C_address  address to be set for the I2C device.
+ * @param  index  Index to the specified sensor.
  * ----------
  * @return 0 for failed initialization, 1 for successful initialization.
  * ----------
  * @brief  Initialize VL53L0X.
  */
-int VL53L0X_Init(uint8_t I2C_address, int index);
+int VL53L0X_Init(int index);
+
+/**
+ * VL53L0X_SingleRanging_Init
+ * ----------
+ * @param  index  Index to the specified sensor.
+ * ----------
+ * @return 0 for failed initialization, 1 for successful initialization.
+ * ----------
+ * @brief  Initialize VL53L0X for single ranging mode.
+ */
+int VL53L0X_SingleRanging_Init (int index);
 
 /**
  * VL53L0X_setAddress
